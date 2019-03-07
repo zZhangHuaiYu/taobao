@@ -143,4 +143,17 @@ public class GoodsController {
         return goodsService.findPage(goods, page, rows);
     }
 
+
+    @RequestMapping("/updateMarketable")
+    public Result updateStatus(Long[] ids, String status) {
+        try {
+            goodsService.updateMarketable(ids, status);
+            return new Result(true, "修改成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false, "修改失败");
+        }
+    }
+
+
 }

@@ -13,8 +13,6 @@ public class TbContent implements Serializable{
 
     private String pic;
 
-    private String content;
-
     private String status;
 
     private Integer sortOrder;
@@ -40,7 +38,7 @@ public class TbContent implements Serializable{
     }
 
     public void setTitle(String title) {
-        this.title = title == null ? null : title.trim();
+        this.title = title;
     }
 
     public String getUrl() {
@@ -48,7 +46,7 @@ public class TbContent implements Serializable{
     }
 
     public void setUrl(String url) {
-        this.url = url == null ? null : url.trim();
+        this.url = url;
     }
 
     public String getPic() {
@@ -56,15 +54,7 @@ public class TbContent implements Serializable{
     }
 
     public void setPic(String pic) {
-        this.pic = pic == null ? null : pic.trim();
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
+        this.pic = pic;
     }
 
     public String getStatus() {
@@ -72,7 +62,7 @@ public class TbContent implements Serializable{
     }
 
     public void setStatus(String status) {
-        this.status = status == null ? null : status.trim();
+        this.status = status;
     }
 
     public Integer getSortOrder() {

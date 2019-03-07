@@ -135,11 +135,6 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public void update(Goods goods) {
 
-
-
-
-
-
         //更新基本表数据
         goodsMapper.updateByPrimaryKey(goods.getGoods());
 
@@ -192,7 +187,14 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public void delete(Long[] ids) {
         for (Long id : ids) {
-            goodsMapper.deleteByPrimaryKey(id);
+            //查询出数据库中的数据
+            TbGoods goods = goodsMapper.selectByPrimaryKey(id);
+
+            //将商品id设置为1
+            goods.setIsDelete("1");
+
+            //更新商品的信息
+            goodsMapper.updateByPrimaryKey(goods);
         }
     }
 
@@ -203,7 +205,8 @@ public class GoodsServiceImpl implements GoodsService {
 
         TbGoodsExample example = new TbGoodsExample();
         Criteria criteria = example.createCriteria();
-
+        //指定查询条件为逻辑删除
+        criteria.andIsDeleteIsNull();
         if (goods != null) {
 
             if (goods.getSellerId() != null && goods.getSellerId().length() > 0) {
@@ -239,5 +242,30 @@ public class GoodsServiceImpl implements GoodsService {
         Page<TbGoods> page = (Page<TbGoods>) goodsMapper.selectByExample(example);
         return new PageResult(page.getTotal(), page.getResult());
     }
+
+    //批量修改状态
+    @Override
+    public void updateStatus(Long[] ids, String status) {
+        for (Long id : ids) {
+
+            TbGoods tbGoods = goodsMapper.selectByPrimaryKey(id);
+            tbGoods.setAuditStatus(status);
+            goodsMapper.updateByPrimaryKey(tbGoods);
+
+
+        }
+
+    }
+
+    @Override
+    public void updateMarketable(Long[] ids, String status) {
+        for (Long id : ids) {
+            TbGoods tbGoods = goodsMapper.selectByPrimaryKey(id);
+            tbGoods.setIsMarketable(status);
+            goodsMapper.updateByPrimaryKey(tbGoods);
+        }
+
+    }
+
 
 }

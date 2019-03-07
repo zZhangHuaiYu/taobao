@@ -68,7 +68,7 @@ app.controller('goodsController', function ($scope, $controller, goodsService, u
             function (response) {
                 if (response.success) {
                     alert('保存成功');
-                    location.href="goods.html"
+                    location.href = "goods.html"
                 } else {
                     alert(response.message);
                 }
@@ -322,5 +322,28 @@ app.controller('goodsController', function ($scope, $controller, goodsService, u
 
     }
 
+
+    //批量修改状态
+    $scope.updateMarketable = function (status) {
+        goodsService.updateMarketable($scope.selectIds, status).success(
+            function (response) {
+                if (response.success) {
+                    if (status == 1) {
+                        $scope.boolean = 1;
+
+                    }
+                    if (status == 0) {
+                        $scope.boolean = 0;
+
+                    }
+                    $scope.readLoad();//刷新列表
+                    $scope.selectIds = [];//清空ID集合
+                } else {
+                    alert(response.message);
+                }
+
+            }
+        )
+    }
 
 });
