@@ -80,11 +80,13 @@ public class BrandServiceImpl implements BrandService {
         return new PageResult(page.getTotal(), page.getResult());
     }
 
+
+
     //返回特有的json格式
     @Override
     public List<Map> selectOptionList() {
         return brandMapper.selectOptionList();
-    }
 
+    }
 
 }

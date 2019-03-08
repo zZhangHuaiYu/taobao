@@ -1,24 +1,33 @@
 package com.pinyougou.pojo;
 
+import org.apache.solr.client.solrj.beans.Field;
+import org.springframework.data.solr.core.mapping.Dynamic;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Map;
 
-public class TbItem implements Serializable{
+public class TbItem implements Serializable {
+    @Field
     private Long id;
 
+    @Field("item_title")
     private String title;
 
     private String sellPoint;
 
+    @Field("item_price")
     private BigDecimal price;
 
     private Integer stockCount;
+
 
     private Integer num;
 
     private String barcode;
 
+    @Field("item_image")
     private String image;
 
     private Long categoryid;
@@ -37,19 +46,35 @@ public class TbItem implements Serializable{
 
     private String isDefault;
 
+    @Field("item_goodsid")
     private Long goodsId;
 
     private String sellerId;
 
     private String cartThumbnail;
 
+    @Field("item_category")
     private String category;
 
+    @Field("item_brand")
     private String brand;
 
     private String spec;
 
+    @Field("item_seller")
     private String seller;
+
+    @Dynamic
+    @Field("item_spec_*")
+    private Map<String, String> specMap;
+
+    public Map<String, String> getSpecMap() {
+        return specMap;
+    }
+
+    public void setSpecMap(Map<String, String> specMap) {
+        this.specMap = specMap;
+    }
 
     public Long getId() {
         return id;
@@ -64,7 +89,7 @@ public class TbItem implements Serializable{
     }
 
     public void setTitle(String title) {
-        this.title = title == null ? null : title.trim();
+        this.title = title;
     }
 
     public String getSellPoint() {
@@ -72,7 +97,7 @@ public class TbItem implements Serializable{
     }
 
     public void setSellPoint(String sellPoint) {
-        this.sellPoint = sellPoint == null ? null : sellPoint.trim();
+        this.sellPoint = sellPoint;
     }
 
     public BigDecimal getPrice() {
@@ -104,7 +129,7 @@ public class TbItem implements Serializable{
     }
 
     public void setBarcode(String barcode) {
-        this.barcode = barcode == null ? null : barcode.trim();
+        this.barcode = barcode;
     }
 
     public String getImage() {
@@ -112,7 +137,7 @@ public class TbItem implements Serializable{
     }
 
     public void setImage(String image) {
-        this.image = image == null ? null : image.trim();
+        this.image = image;
     }
 
     public Long getCategoryid() {
@@ -128,7 +153,7 @@ public class TbItem implements Serializable{
     }
 
     public void setStatus(String status) {
-        this.status = status == null ? null : status.trim();
+        this.status = status;
     }
 
     public Date getCreateTime() {
@@ -152,7 +177,7 @@ public class TbItem implements Serializable{
     }
 
     public void setItemSn(String itemSn) {
-        this.itemSn = itemSn == null ? null : itemSn.trim();
+        this.itemSn = itemSn;
     }
 
     public BigDecimal getCostPirce() {
@@ -176,7 +201,7 @@ public class TbItem implements Serializable{
     }
 
     public void setIsDefault(String isDefault) {
-        this.isDefault = isDefault == null ? null : isDefault.trim();
+        this.isDefault = isDefault;
     }
 
     public Long getGoodsId() {
@@ -192,7 +217,7 @@ public class TbItem implements Serializable{
     }
 
     public void setSellerId(String sellerId) {
-        this.sellerId = sellerId == null ? null : sellerId.trim();
+        this.sellerId = sellerId;
     }
 
     public String getCartThumbnail() {
@@ -200,7 +225,7 @@ public class TbItem implements Serializable{
     }
 
     public void setCartThumbnail(String cartThumbnail) {
-        this.cartThumbnail = cartThumbnail == null ? null : cartThumbnail.trim();
+        this.cartThumbnail = cartThumbnail;
     }
 
     public String getCategory() {
@@ -208,7 +233,7 @@ public class TbItem implements Serializable{
     }
 
     public void setCategory(String category) {
-        this.category = category == null ? null : category.trim();
+        this.category = category;
     }
 
     public String getBrand() {
@@ -216,7 +241,7 @@ public class TbItem implements Serializable{
     }
 
     public void setBrand(String brand) {
-        this.brand = brand == null ? null : brand.trim();
+        this.brand = brand;
     }
 
     public String getSpec() {
@@ -224,7 +249,7 @@ public class TbItem implements Serializable{
     }
 
     public void setSpec(String spec) {
-        this.spec = spec == null ? null : spec.trim();
+        this.spec = spec;
     }
 
     public String getSeller() {
@@ -232,6 +257,6 @@ public class TbItem implements Serializable{
     }
 
     public void setSeller(String seller) {
-        this.seller = seller == null ? null : seller.trim();
+        this.seller = seller;
     }
 }
