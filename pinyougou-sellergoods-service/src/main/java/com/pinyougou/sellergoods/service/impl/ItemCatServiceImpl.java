@@ -13,6 +13,8 @@ import com.pinyougou.pojo.TbItemCatExample;
 import com.pinyougou.pojo.TbItemCatExample.Criteria;
 
 import entity.PageResult;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.solr.core.SolrTemplate;
 
 /**
  * 服务实现层
@@ -24,6 +26,9 @@ public class ItemCatServiceImpl implements ItemCatService {
 
     @Autowired
     private TbItemCatMapper itemCatMapper;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     /**
      * 查询全部
@@ -109,7 +114,18 @@ public class ItemCatServiceImpl implements ItemCatService {
         TbItemCatExample example1 = new TbItemCatExample();
         Criteria criteria1 = example1.createCriteria();
         criteria1.andParentIdEqualTo(parentId);
+
+
+        //将模板Id放入缓存(以商品名臣分类)
+
+        List<TbItemCat> itemCatList = findAll();
+        for (TbItemCat itemCat : itemCatList) {
+            redisTemplate.boundHashOps("itemCat").put(itemCat.getName(), itemCat.getTypeId());
+        }
+        System.out.println("将模板表的id放入了缓存中");
         return itemCatMapper.selectByExample(example1);
+
+
     }
 
 }
