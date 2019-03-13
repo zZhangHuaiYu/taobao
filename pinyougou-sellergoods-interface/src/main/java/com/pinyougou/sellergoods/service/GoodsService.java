@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.pinyougou.pojo.TbGoods;
 
+import com.pinyougou.pojo.TbItem;
 import com.pinyougou.pojoGroups.Goods;
 import entity.PageResult;
 
@@ -68,13 +69,15 @@ public interface GoodsService {
     public PageResult findPage(TbGoods goods, int pageNum, int pageSize);
 
 
-
     //批量修改状态
-    public void updateStatus(Long []ids,String status);
+    public void updateStatus(Long[] ids, String status);
 
 
-    public void updateMarketable(Long []ids,String status);
+    public void updateMarketable(Long[] ids, String status);
 
+
+    //根据商品ID和状态查询Item表信息
+    public List<TbItem> findItemListByGoodsIdandStatus(Long[] goodsIds, String status);
 
 
 }

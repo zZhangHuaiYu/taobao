@@ -12,5 +12,10 @@ app.controller("contentController", function ($scope, contentService) {
         )
 
     }
+    //首页关键字跳转到商品页
+    $scope.search = function () {
+        location.href = "http://localhost:9104/search.html#?keywords=" + $scope.keywords;
+
+    }
 
 })

@@ -1,5 +1,6 @@
 package com.pinyougou.sellergoods.service.impl;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -13,8 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.pinyougou.pojo.TbGoodsExample.Criteria;
-
 import entity.PageResult;
 
 /**
@@ -204,7 +203,7 @@ public class GoodsServiceImpl implements GoodsService {
         PageHelper.startPage(pageNum, pageSize);
 
         TbGoodsExample example = new TbGoodsExample();
-        Criteria criteria = example.createCriteria();
+        TbGoodsExample.Criteria criteria = example.createCriteria();
         //指定查询条件为逻辑删除
         criteria.andIsDeleteIsNull();
         if (goods != null) {
@@ -267,5 +266,16 @@ public class GoodsServiceImpl implements GoodsService {
 
     }
 
-
+    //根据商品ID和状态查询Item表信息
+    @Override
+    public List<TbItem> findItemListByGoodsIdandStatus(Long[] goodsIds, String status) {
+        TbItemExample example = new TbItemExample();
+        com.pinyougou.pojo.TbItemExample.Criteria criteria = example.createCriteria();
+        System.out.println(goodsIds);
+        criteria.andGoodsIdIn(Arrays.asList(goodsIds));//指定条件,SPUid集合
+        criteria.andStatusEqualTo(status);
+        List<TbItem> tbItems = itemMapper.selectByExample(example);
+        System.out.println(tbItems);
+        return tbItems;
+    }
 }
