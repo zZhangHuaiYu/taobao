@@ -21,7 +21,7 @@ import org.springframework.data.solr.core.SolrTemplate;
  *
  * @author Administrator
  */
-@Service
+@Service(timeout = 5000)
 public class ItemCatServiceImpl implements ItemCatService {
 
     @Autowired

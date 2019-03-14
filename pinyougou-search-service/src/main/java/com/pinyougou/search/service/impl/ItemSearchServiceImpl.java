@@ -10,8 +10,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.solr.core.SolrTemplate;
 import org.springframework.data.solr.core.query.*;
 import org.springframework.data.solr.core.query.result.*;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -82,8 +80,7 @@ public class ItemSearchServiceImpl implements ItemSearchService {
 
     @Override
     public void deleteByGoodsIds(List goodsIdList) {//删除索引库的数据
-
-        Query query = new SimpleQuery("*:*");
+        Query query = new SimpleQuery();
         Criteria criteria=new Criteria("item_goodsid").in(goodsIdList);
         query.addCriteria(criteria);
         solrTemplate.delete(query);

@@ -7,7 +7,6 @@ public interface ItemSearchService {
 
     public Map<String,Object> search(Map searchMap);
 
-
     //导入sku的数据
     public void importList(List list);
 
